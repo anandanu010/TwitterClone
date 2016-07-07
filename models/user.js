@@ -22,12 +22,12 @@ userSchema.pre('save', function(next){
 });
 
 // Functions for generating a hash and validing a password
-userSchema.methods.generateHasah = function(password){
+userSchema.methods.generateHash = function(password){
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
 userSchema.methods.validPassword = function(password){
-  return bcrypt.compareSync(password, this.local.password);
+  return bcrypt.compareSync(password, this.password);
 };
 
 //Setup user table and assocaite the schama

@@ -8,8 +8,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function(req,res){
-  res.render('login');
+  res.render('login', {message: req.flash('loginMessage')});
 });
+
 
 router.post('/login', passport.authenticate('user-login', {
   successRedirect: '/myprofile',
@@ -17,9 +18,8 @@ router.post('/login', passport.authenticate('user-login', {
   failureFlash: true,
 }));
 
-
 router.get('/signup', function(req,res){
-  res.render('signup');
+  res.render('signup', {message: req.flash('loginMessage')});
 });
 
 router.post('/signup', passport.authenticate('user-signup', {

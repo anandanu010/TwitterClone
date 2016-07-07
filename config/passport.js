@@ -21,7 +21,7 @@ module.exports = function(passport){
   },
   function(req, username, password, done){
     process.nextTick(function(){
-      User.findOne({'username': username}, function(err, user, done){
+      User.findOne({'username': username}, function(err, user){
         if(err) return done(err);
 
         if(user){
@@ -49,11 +49,11 @@ module.exports = function(passport){
    passReqToCallback: true,
  },
  function(req, username, password, done){
-   User.findOne({'username': username}, function(err, user, done){
+   User.findOne({'username': username}, function(err, user){
      if(err) return done(err);
 
      if(!user) return done(null, false, req.flash('loginMessage', 'No user found.'));
-     if(!user.validPassword(pasword)) return done(null, false, req.flash('loginMessage', 'Wrong password.'));
+     if(!user.validPassword(password)) return done(null, false, req.flash('loginMessage', 'Wrong password.'));
      return done(null, user);
    })
  }

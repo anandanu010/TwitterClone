@@ -3,7 +3,8 @@
 extends layout
 
 block content
-  form(action="/api/signup" method="POST")
+  div.alert-danger #{message}
+  form(action="/signup" method="POST")
     label Name:
     input(type="text" name="name")
     br
