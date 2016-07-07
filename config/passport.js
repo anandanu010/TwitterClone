@@ -1,6 +1,6 @@
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
-
+// comment
 module.exports = function(passport){
   // Passport also needs to serialize and deserialize user instance from a session store in order to support login sessions,
   // so that every subsequent request will not contain the user credentials.
