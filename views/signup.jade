@@ -1,0 +1,19 @@
+//output:signup.html
+
+extends layout
+
+block content
+  form(action="/api/signup" method="POST")
+    label Name:
+    input(type="text" name="name")
+    br
+    label Username:
+    input(type="text" name="username")
+    br
+    label Password:
+    input(type="password" name="password")
+    br
+    label Email:
+    input(type="email" name="email")
+    br
+    input(type="submit" value="Submit")
