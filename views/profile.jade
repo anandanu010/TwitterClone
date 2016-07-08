@@ -4,7 +4,7 @@ extends layout
 
 block content
   p Welcome #{user}
-  
+  div.alert-danger #{newStatus}
   form(action="/newstatus" method="POST")
       label Status:
       input(type="textarea" name="status")

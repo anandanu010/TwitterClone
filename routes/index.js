@@ -41,6 +41,15 @@ router.get('/myprofile', isLoggedIn, function(req, res){
 })
 
 router.post('/newstatus', isLoggedIn, function(req,res){
+    console.log('Posting to status api with status %j', req.body.status);
+    var status = new Status(); // new instance of status model - as we are adding to the DSB
+    status.status = req.body.status // set the status to status that comes from request
+    status.username = req.user.username;
+    //save our new status object
+    status.save(function(err){
+     if (err) res.send(err);
+        res.render('myprofile', {message: req.flash('newStatus')});
+    });
   console.log(req.body.status);
 })
 
