@@ -36,8 +36,9 @@ router.get('/myprofile', isLoggedIn, function(req, res){
   Status.find({'username': req.user.username},function(err, allStatus){
       if (err) res.send(err);
       console.log(allStatus);
+      res.render('profile', {user: req.user, statuses: allStatus});
   });
-  res.render('profile', {user: req.user, statuses: allStatus});
+  //res.render('profile', {user: req.user, statuses: allStatus});
 })
 
 router.post('/newstatus', isLoggedIn, function(req,res){
@@ -48,7 +49,7 @@ router.post('/newstatus', isLoggedIn, function(req,res){
     //save our new status object
     status.save(function(err){
      if (err) res.send(err);
-        res.render('profile', {user: req.user, newStatus: 'New status posted'});
+        res.redirect('/myprofile');
     });
   console.log(req.body.status);
 })
