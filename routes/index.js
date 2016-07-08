@@ -48,7 +48,7 @@ router.post('/newstatus', isLoggedIn, function(req,res){
     //save our new status object
     status.save(function(err){
      if (err) res.send(err);
-        res.render('myprofile', {message: req.flash('newStatus')});
+        res.render('profile', {message: req.flash('newStatus')});
     });
   console.log(req.body.status);
 })
