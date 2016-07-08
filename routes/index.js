@@ -33,7 +33,7 @@ router.get('/myprofile', isLoggedIn, function(req, res){
   // TO AMAZING SHIT HERE
   console.log('Loading all statuses for user', req.user);
   // Use our status model to find everything via find
-  Status.find({'user':  req.user.username},function(err, allStatus){
+  Status.find({'username': req.user.username},function(err, allStatus){
       if (err) res.send(err);
       console.log(allStatus);
   });
@@ -48,7 +48,7 @@ router.post('/newstatus', isLoggedIn, function(req,res){
     //save our new status object
     status.save(function(err){
      if (err) res.send(err);
-        res.render('profile', {message: req.flash('newStatus')});
+        res.render('profile', {user: req.user, newStatus: 'New status posted'});
     });
   console.log(req.body.status);
 })
