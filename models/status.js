@@ -7,7 +7,7 @@ var statusSchema = mongoose.Schema({
    updated_at:  { type: Date, default: Date.now }
 });
 
-statusSchema.pre('save', function(){
+statusSchema.pre('save', function(next){
   var currentDate = new Date();
 
   this.updated_at = currentDate;
