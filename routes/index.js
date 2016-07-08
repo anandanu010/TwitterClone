@@ -37,7 +37,7 @@ router.get('/myprofile', isLoggedIn, function(req, res){
       if (err) res.send(err);
       console.log(allStatus);
   });
-  res.render('profile', {user: req.user});
+  res.render('profile', {user: req.user, statuses: allStatus});
 })
 
 router.post('/newstatus', isLoggedIn, function(req,res){

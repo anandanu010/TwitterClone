@@ -4,9 +4,15 @@ extends layout
 
 block content
   p Welcome #{user}
-  div.alert-danger #{newStatus}
+  div.alert-success #{newStatus}
   form(action="/newstatus" method="POST")
       label Status:
       input(type="textarea" name="status")
       br
       input(type="submit" value="Post status")
+
+  p statuses
+  p #{statuses}
+  ul
+    each val in #{statuses}
+      li= val
