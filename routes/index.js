@@ -5,13 +5,12 @@ var passport = require('passport');
 var Status = require('../models/status');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Whitter!!' });
 });
 
 router.get('/login', function(req,res){
   res.render('login', {message: req.flash('loginMessage')});
 });
-
 
 router.post('/login', passport.authenticate('user-login', {
   successRedirect: '/myprofile',
@@ -30,18 +29,16 @@ router.post('/signup', passport.authenticate('user-signup', {
 }));
 
 router.get('/myprofile', isLoggedIn, function(req, res){
-  // TO AMAZING SHIT HERE
   console.log('Loading all statuses for user', req.user);
   // Use our status model to find everything via find
   Status.find({'username': req.user.username},function(err, allStatus){
       if (err) res.send(err);
-      console.log(allStatus);
       res.render('profile', {user: req.user, statuses: allStatus});
   });
-  //res.render('profile', {user: req.user, statuses: allStatus});
 })
 
 router.post('/newstatus', isLoggedIn, function(req,res){
+    // Move this logic to status model or create different model
     console.log('Posting to status api with status %j', req.body.status);
     var status = new Status(); // new instance of status model - as we are adding to the DSB
     status.status = req.body.status // set the status to status that comes from request
@@ -51,7 +48,6 @@ router.post('/newstatus', isLoggedIn, function(req,res){
      if (err) res.send(err);
         res.redirect('/myprofile');
     });
-  console.log(req.body.status);
 })
 
 router.get('/logout', function(req, res) {

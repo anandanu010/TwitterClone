@@ -2,7 +2,10 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  a(href ="/login" class="btn btn-default") Login
-  a(href ="/signup" class="btn btn-default") Sign up!
+  div.jumbotron.text-center
+    div(class="col-sm-8.col-sm-offset-2")
+      h1= title
+      p Welcome to #{title}
+      p Our own rolled twitter clone
+      a(href ="/login" class="btn btn-default") Login
+      a(href ="/signup" class="btn btn-default") Sign up!

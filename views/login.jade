@@ -1,15 +1,15 @@
 //output:login.html
 extends layout
 
-div.col-sm-8.col-sm-offset-2
-    div.jumbotron.textcenter
-        block content
-            div.alert-danger #{message}
-            form(action="/login" method="POST")
-                label Username:
-                input(type="text" name="username")
-                br
-                label Password:
-                input(type="password" name="password")
-                br
-                input(type="submit" value="Sign in")
+block content
+  div.jumbotron.text-center
+    div(class="col-sm-8.col-sm-offset-2")
+      div.alert-danger #{message}
+      form(action="/login" method="POST")
+        label Username:
+        input(type="text" name="username")
+        br
+        label Password:
+        input(type="password" name="password")
+        br
+        input(type="submit" value="Sign in")
