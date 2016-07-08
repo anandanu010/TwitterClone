@@ -4,3 +4,9 @@ extends layout
 
 block content
   p Welcome #{user}
+  
+  form(action="/newstatus" method="POST")
+      label Status:
+      input(type="textarea" name="status")
+      br
+      input(type="submit" value="Post status")

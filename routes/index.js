@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
+var Status = require('../models/status');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -29,7 +30,18 @@ router.post('/signup', passport.authenticate('user-signup', {
 }));
 
 router.get('/myprofile', isLoggedIn, function(req, res){
+  // TO AMAZING SHIT HERE
+  console.log('Loading all statuses for user', req.user);
+  // Use our status model to find everything via find
+  Status.find({'user':  req.user.username},function(err, allStatus){
+      if (err) res.send(err);
+      console.log(allStatus);
+  });
   res.render('profile', {user: req.user});
+})
+
+router.post('/newstatus', isLoggedIn, function(req,res){
+  console.log(req.body.status);
 })
 
 router.get('/logout', function(req, res) {
