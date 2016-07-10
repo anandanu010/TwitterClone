@@ -3,17 +3,21 @@
 extends layout
 
 block content
-  p Welcome #{user}
-  div.alert-success #{newStatus}
-  form(action="/newstatus" method="POST")
-      label Status:
-      input(type="textarea" name="status")
-      br
-      input(type="submit" value="Post status")
+  div.jumbotron.text-center
+    div(class="col-sm-8.col-sm-offset-2")
+      p Welcome #{user}
+      div.alert-success #{newStatus}
+      form(action="/newstatus" method="POST")
+        label Status:
+        textarea(rows="4", cols="50", name="status")
+        br
+        input(type="submit" value="Post status")
 
-  p statuses
-  p #{statuses}
-  //- var statusList = #{statuses};
-  ul
-     - each val in statuses
-       li= val.status
+        h2 All your statuses
+        p #{statuses}
+        ul
+          - each val in statuses
+            li= val.status
+              a(href="", id= val._id, class="editable") Edit
+              a(href="/deletestatus", id= val._id, class="editable") Delete
+              a(href="/editstatus", id= val._id, class="save" style="display: none;") Save

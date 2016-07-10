@@ -19,7 +19,7 @@ router.post('/login', passport.authenticate('user-login', {
 }));
 
 router.get('/signup', function(req,res){
-  res.render('signup', {message: req.flash('loginMessage')});
+  res.render('signup', {message: req.flash('signupMessage')});
 });
 
 router.post('/signup', passport.authenticate('user-signup', {
@@ -35,6 +35,10 @@ router.get('/myprofile', isLoggedIn, function(req, res){
       if (err) res.send(err);
       res.render('profile', {user: req.user, statuses: allStatus});
   });
+})
+
+router.post('/delete', isLoggedIn, function(req, rest){
+  console.log('Deleting status', req.body._id);
 })
 
 router.post('/newstatus', isLoggedIn, function(req,res){
