@@ -14,10 +14,10 @@ block content
         input(type="submit" value="Post status")
 
         h2 All your statuses
-        p #{statuses}
         ul
           - each val in statuses
             li= val.status
-              a(href="", id= val._id, class="editable") Edit
-              a(href="/deletestatus", id= val._id, class="editable") Delete
-              a(href="/editstatus", id= val._id, class="save" style="display: none;") Save
+              input(type="submit", class="editable btn btn-default",  id= val._id, value="Edit")
+              form(action="/delete" method="POST")
+                input(type="hidden" name="statusid" value=val._id)
+                input(type="submit", value="Delete")
