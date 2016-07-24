@@ -1,8 +1,59 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #f5f8fa!important;
+  color: #292f33;
 }
 
 a {
   color: #00B7FF;
+}
+
+ul {
+  list-style: none;
+  padding-left: 10px;
+  background-color: #FFFFFF;
+}
+
+
+.buttons {
+  display: inline;
+  float: right;
+  margin-left: 50px;
+}
+
+.buttons form{
+  display: inline;
+}
+
+.editedStatus {
+
+}
+
+#profilePageJumbo {
+  background-image: url('https://placehold.it/1300x400');
+  height: 400px;
+  background-position: center;
+  background-size: cover;
+}
+
+#profilePicture {
+   margin-top:-125px;
+   text-align:center;
+}
+
+#profilePictureImg {
+   border-style: solid;
+   border-width: 5px;
+   border-radius: 25px;
+   border-color: white;
+}
+
+#userProfileCard {
+   text-align: left;
+   margin-left: 55px;
+   margin-top: 30px;
+}
+
+#statusTitle{
+   text-align:center;
 }

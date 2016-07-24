@@ -69,6 +69,7 @@ router.post('/saveStatus', isLoggedIn, function(req,res){
       statusToUpdate.save(function(err){
         if (err) res.send(err);
         console.log('Status updated');
+        res.redirect('/myprofile');
       });
     });
 });

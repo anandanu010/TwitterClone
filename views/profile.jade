@@ -3,21 +3,52 @@
 extends layout
 
 block content
-  div.jumbotron.text-center
-    div(class="col-sm-8.col-sm-offset-2")
-      p Welcome #{user}
-      div.alert-success #{newStatus}
-      form(action="/newstatus" method="POST")
-        label Status:
-        textarea(rows="4", cols="50", name="status")
-        br
-        input(type="submit" value="Post status")
+  #navbar.navbar.navbar-default.navbar-fixed-top
+    .container
+      ul.nav.navbar-nav
+        li.active
+          a(href='#') Home
+        li
+          a(href='#about') About
 
-        h2 All your statuses
+  .jumbotron#profilePageJumbo
+    .container
+
+  .container
+    .row
+      div(class="col-sm-4" id="profilePicture")
+        img(src="https://placehold.it/250x250" id="profilePictureImg")
+      div(class="col-sm-8")
+        div(class="col-sm-8")
+           div.alert-success #{newStatus}
+           form(action="/newstatus" method="POST" style="")
+             label Status:
+             textarea(rows="4", cols="55", name="status", style="float:right")
+             br
+             input(type="submit" value="Post status" style="float:right")
+
+    .row
+      div(class="col-sm-3" id="userProfileCard")
+        p Welcome #{user.username}
+        p @#{user.username}
+        p User account description here
+        p Joined #{user.created_at}
+      div(class="col-sm-8 well well-sm", style="float:right;background-color:white", id="twitterStatuses")
+        h2(id="statusTitle") Statuses
         ul
-          - each val in statuses
-            li= val.status
-              input(type="submit", class="editable btn btn-default",  id= val._id, value="Edit")
-              form(action="/delete" method="POST")
-                input(type="hidden" name="statusid" value=val._id)
-                input(type="submit", value="Delete")
+            hr
+            - each val in statuses
+              li
+                img(src="https://placehold.it/50x50" style="float:left;padding-right:20px")
+                p
+                   strong Jason LLoyd @#{user.username}
+                   span=val.updated_at
+                p(class="statusText")=val.status
+                br
+                div.buttons
+                  input(type="submit", class="editable btn btn-default",  id= val._id, value="Edit")
+                  form(action="/delete" method="POST")
+                    input(type="hidden", name="statusid", value=val._id)
+                    input(type="submit", value="Delete", class="btn btn-default")
+                br
+              hr
