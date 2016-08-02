@@ -33,6 +33,7 @@ router.get('/myprofile', isLoggedIn, function(req, res){
   // Use our status model to find everything via find
   Status.find({'username': req.user.username},function(err, allStatus){
       if (err) res.send(err);
+      console.log(allStatus);
       res.render('profile', {user: req.user, statuses: allStatus});
   });
 })
