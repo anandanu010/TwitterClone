@@ -11,23 +11,25 @@ block content
         li
           a(href='#about') About
         li
-          button(type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal") Open Modal
-          div(class="modal draggable" id="myModal" role="alertdialog" aria-labelledby="global-tweet-dialog-header" aria-describedby="global-tweet-dialog-body" style="top: 182.797px; left: 74px;")
-            div(class="modal content" role="document")
-              div(class="modal-header")
-                h3(class="modal-title") Compose New Tweet
-              div(class="modal-form")
-                form(class="tweet-form" method="post" action="/newStatus")
-                  div(class="tweet-content")
-                    textarea(rows="4", cols="55", name="status")
-                    div(class="tweetToolbar")
-                      input(type="file" value="Upload Pic")
-                      button(type="file" value="Upload Pic")
-                      button(type="" value="Add poll")
-                      button(type="" value="location")
-                      span(class="counter") 140
-                      button(type="submit" value="Tweet!!")
-                
+          button(type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal") New Tweet
+          div(class="modal fade" tabindex="-1" role="dialog")
+            div(class="modal-dialog" role="document")
+              div(class="modal-content")
+                div(class="modal-header")
+                    h3(class="modal-title") Compose New Tweet
+                div(class="modal-body")
+                  div(class="modal-form")
+                    form(class="tweet-form" method="post" action="/newStatus")
+                      div(class="tweet-content")
+                        textarea(rows="4", cols="55", name="status")
+                        div(class="tweetToolbar")
+                          input(type="file" value="Upload Pic")
+                          button(type="file" value="Upload Pic")
+                          button(type="" value="Add poll")
+                          button(type="" value="location")
+                          span(class="counter") 140
+                          button(type="submit" value="Tweet!!")
+                          
   .jumbotron#profilePageJumbo
     .container
 
@@ -44,7 +46,7 @@ block content
              br
              input(type="submit" value="Post status" style="float:right")
 
-   .row
+    .row
      div(class="col-sm-3" id="userProfileCard")
        p Welcome #{user.username}
        p @#{user.username}
