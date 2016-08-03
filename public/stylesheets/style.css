@@ -59,3 +59,40 @@ ul {
 #statusTitle{
    text-align:center;
 }
+
+#fileInput{
+   position: absolute;
+   opacity: 0;
+   -moz-opacity: 0;
+   filter: alpha(opacity=0);
+}
+
+#fakeFile{
+   position:absolute;
+   top 0px;
+   left 0px;
+   z-index:1;
+}
+
+.tweetToolbar{
+   padding-top:20px;
+}
+
+.fileUpload {
+   position: relative;
+   overflow: hidden;
+   margin: 10px;
+}
+
+.fileUPload input.upload {
+  position: absolute;
+  top:0px;
+  left:0px;
+  right:0px;
+  margin:0px;
+  padding:0px;
+  font-size:20px;
+  cursor:pointer;
+  opacity: 0px;
+  filter: alpha(opacity=0);  
+}
