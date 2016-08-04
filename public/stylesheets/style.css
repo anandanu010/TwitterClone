@@ -30,7 +30,7 @@ ul {
 }
 
 #profilePageJumbo {
-  background-image: url('https://pbs.twimg.com/profile_images/470649386197069824/_x_-pp09.jpeg');
+  background-image: url('https://pbs.twimg.com/profile_banners/50110518/1367691415/1500x500');
   height: 500px;
   background-position: center;
   background-size: cover;
@@ -94,5 +94,5 @@ ul {
   font-size:20px;
   cursor:pointer;
   opacity: 0px;
-  filter: alpha(opacity=0);  
+  filter: alpha(opacity=0);
 }

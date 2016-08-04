@@ -35,16 +35,23 @@ block content
           a(href='#') Home
         li
           a(href='#about') About
+      ul.nav.navbar-nav.navbar-right
         li
+          form
+            div(class="form-group")
+              input(type="text" class="form-control" placeholder="Search")
+            button(type="submit" class="btn btn-default") Submit
+          img(src="https://placehold.it/250x250" id="profilePictureImg")
           button(type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal") New Tweet
-                          
+          
+            
   .jumbotron#profilePageJumbo
     .container
 
   .container
     .row
       div(class="col-sm-4" id="profilePicture")
-        img(src="https://placehold.it/250x250" id="profilePictureImg")
+        img(src="https://pbs.twimg.com/profile_images/470649386197069824/_x_-pp09.jpeg" id="profilePictureImg")
       div(class="col-sm-8")
         div(class="col-sm-8")
            div.alert-success #{newStatus}
@@ -53,12 +60,13 @@ block content
              textarea(rows="4", cols="55", name="status", style="float:right")
              br
              input(type="submit" value="Post status" style="float:right")
+             input(type="submit", class="editUser btn btn-default", value="Edit Profile", style="float:right")
 
     .row
      div(class="col-sm-3" id="userProfileCard")
-       p Welcome #{user.username}
-       p @#{user.username}
-       p User account description here
+       p(class="realName") Welcome #{user.username}
+       p(class="username") @#{user.username}
+       p(class="userDescription") User account description here
        p Joined #{user.created_at}
      div(class="col-sm-8 well well-sm", style="float:right;background-color:white", id="twitterStatuses")
        h2(id="statusTitle") Statuses

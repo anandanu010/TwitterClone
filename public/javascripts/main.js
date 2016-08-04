@@ -24,6 +24,22 @@ $(function(){
       //   $('#results').html(data);
       // });
    });
+
+   $('editUser').on('click', function(e){
+       var realUserName = $('.realName');
+       var userDescription = $('.userDescription');
+
+       $(realUserName).replaceWith(
+         '<input type="text" class="form-control" value="'+ $(realUserName).val() +'" aria-describedby="basic-addon1">'
+       );
+
+       $(userDescription).replaceWith(
+         '<input type="text" class="form-control" value="'+ $(userDescription).val() +'" aria-describedby="basic-addon1">'
+       );
+
+       var profilePic = $('.profilePictureImg');
+       var coverPic = $('#profilePageJumbo');
+   });
    //$('.updateStatus').on('click', function(e){
      // may look at getting previous element in dom as this might return more than one
   //   var id = $(this).attr('id');
