@@ -25,21 +25,33 @@ $(function(){
       // });
    });
 
-   $('editUser').on('click', function(e){
+   $('.editUser').on('click', function(e){
        var realUserName = $('.realName');
        var userDescription = $('.userDescription');
 
        $(realUserName).replaceWith(
-         '<input type="text" class="form-control" value="'+ $(realUserName).val() +'" aria-describedby="basic-addon1">'
+         '<input type="text" class="form-control" value="'+ $(realUserName).text() +'" aria-describedby="basic-addon1">'
        );
 
        $(userDescription).replaceWith(
-         '<input type="text" class="form-control" value="'+ $(userDescription).val() +'" aria-describedby="basic-addon1">'
+         '<input type="text" class="form-control" value="'+ $(userDescription).text() +'" aria-describedby="basic-addon1">'
        );
 
        var profilePic = $('.profilePictureImg');
        var coverPic = $('#profilePageJumbo');
+
+       var editButton = $(this);
+       $(editButton).replaceWith(
+        '<form action="/saveStatus" method="POST" class="">'
+        +
+        '<a href="/myProfile" class="btn btn-default">Cancel</a>'
+        +
+        '<input type="submit" value="Save Changes" class="updateUser btn btn-default" id="">'
+        +
+        '</form>'
+       );
    });
+ 
    //$('.updateStatus').on('click', function(e){
      // may look at getting previous element in dom as this might return more than one
   //   var id = $(this).attr('id');

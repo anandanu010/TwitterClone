@@ -37,31 +37,46 @@ block content
           a(href='#about') About
       ul.nav.navbar-nav.navbar-right
         li
-          form
+          form(class="form-inline")
             div(class="form-group")
               input(type="text" class="form-control" placeholder="Search")
             button(type="submit" class="btn btn-default") Submit
-          img(src="https://placehold.it/250x250" id="profilePictureImg")
-          button(type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal") New Tweet
+        li
+           img(src="https://placehold.it/32x32")
+        li
+           button(type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal") New Tweet
           
             
   .jumbotron#profilePageJumbo
     .container
 
+  navbar.navbar.navbar-default.navbar-staic-top
+    .row(style="background-color: white; border-bottom: 1px solid rgb(227, 227, 227);")
+        div(class="col-sm-offset-5 col-sm-7")
+          .container
+            ul.nav.navbar-nav
+              li.active
+                a(href='#') Tweets
+                span(id="numOfTweets") 500
+              li
+                a(href='#') Following
+                span(id="numFollowing") N/A
+              li
+                a(href='#') Followers
+                span(id="numOfFollowers") N/A
+              li
+                a(href='#') Likes
+                span(id="numOfLikes") N/A
+              li
+                a(href='#') Lists
+                span(id="numOfLists") N/A
+              li(style="float:right")
+                input(type="submit", class="editUser btn btn-default", value="Edit Profile")
+   
   .container
     .row
-      div(class="col-sm-4" id="profilePicture")
-        img(src="https://pbs.twimg.com/profile_images/470649386197069824/_x_-pp09.jpeg" id="profilePictureImg")
-      div(class="col-sm-8")
-        div(class="col-sm-8")
-           div.alert-success #{newStatus}
-           form(action="/newstatus" method="POST" style="")
-             label Status:
-             textarea(rows="4", cols="55", name="status", style="float:right")
-             br
-             input(type="submit" value="Post status" style="float:right")
-             input(type="submit", class="editUser btn btn-default", value="Edit Profile", style="float:right")
-
+        div(class="col-sm-4" id="profilePicture")
+          img(src="https://pbs.twimg.com/profile_images/470649386197069824/_x_-pp09.jpeg" id="profilePictureImg")
     .row
      div(class="col-sm-3" id="userProfileCard")
        p(class="realName") Welcome #{user.username}
