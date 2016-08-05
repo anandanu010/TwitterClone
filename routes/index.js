@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 
 var Status = require('../models/status');
+var User = require('../models/user');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Whitter!!' });
@@ -73,6 +74,11 @@ router.post('/saveStatus', isLoggedIn, function(req,res){
         res.redirect('/myprofile');
       });
     });
+});
+
+router.post('/editUser', isLoggedIn, function(req,res){
+  console.log('Updating user %j details', req.user);
+  console.log(req.body);
 });
 
 router.get('/logout', function(req, res) {

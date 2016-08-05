@@ -42,7 +42,7 @@ $(function(){
 
        var editButton = $(this);
        $(editButton).replaceWith(
-        '<form action="/saveStatus" method="POST" class="">'
+        '<form action="" method="" class="">'
         +
         '<a href="/myProfile" class="btn btn-default">Cancel</a>'
         +
@@ -51,15 +51,30 @@ $(function(){
         '</form>'
        );
    });
- 
-   //$('.updateStatus').on('click', function(e){
-     // may look at getting previous element in dom as this might return more than one
-  //   var id = $(this).attr('id');
-     // traverse the dom, go to parent then to child of tat parent
-  //   var text = $(this).parent.children('.editedStatus').val();
 
-  //   $.post(""){
-
-  //   }
-  // }
+   $('.updateUser').on('click', function(e){
+     var realUserName = $('.realName');
+     var userDescription = $('.userDescription');
+     $.ajax({
+       url: "/editUser",
+       type: "POST",
+       dataType: "json",
+       data: {
+         realName: $(realUserName).text(),
+         userDescription: $(userDescription).text()
+       },
+       contentType: "application/json",
+       cache: false,
+       timeout: 5000,
+       complete: function(){
+         console.log("Process complete");
+       },
+       success: function(){
+         console.log("process success");
+       },
+       error: function(){
+         console.log("process error");
+       },
+     });
+   });
  })
