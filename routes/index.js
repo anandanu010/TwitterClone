@@ -81,10 +81,15 @@ router.post('/editUser', isLoggedIn, function(req,res){
   console.log(req.body);
   User.findById(req.user._id, function(err, userToUpdate){
      console.log(userToUpdate);
-     userToUpdate
+     userToUpdate.name = req.body.realName;
+     userToUpdate.description = req..body.userDescription;
+
+     userToUpdate.save(function(err){
+       if (err) res.send(err);
+       console.log('User details updated');
+       res.json({ success: true });
+     });
   });
-  res.json({ success: true })
-  //res.sendStatus(302);
 });
 
 router.get('/logout', function(req, res) {

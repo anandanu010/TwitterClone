@@ -79,9 +79,9 @@ block content
           img(src="https://pbs.twimg.com/profile_images/470649386197069824/_x_-pp09.jpeg" id="profilePictureImg")
     .row
      div(class="col-sm-3" id="userProfileCard")
-       p(class="realName") Welcome #{user.username}
+       p(class="realName") Welcome #{user.name}
        p(class="username") @#{user.username}
-       p(class="userDescription") User account description here
+       p(class="userDescription") #{user.description}
        p Joined #{user.created_at}
      div(class="col-sm-8 well well-sm", style="float:right;background-color:white", id="twitterStatuses")
        h2(id="statusTitle") Statuses
@@ -91,7 +91,7 @@ block content
              li
                img(src="https://placehold.it/50x50" style="float:left;padding-right:20px")
                p 
-                  strong Jason LLoyd @#{user.username} 
+                  strong #{user.name} @#{user.username} 
                   span=val.updated_at
                p(class="statusText")=val.status
                br
