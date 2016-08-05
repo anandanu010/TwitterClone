@@ -30,11 +30,11 @@ $(function(){
        var userDescription = $('.userDescription');
 
        $(realUserName).replaceWith(
-         '<input type="text" class="form-control" value="'+ $(realUserName).text() +'" aria-describedby="basic-addon1">'
+         '<input type="text" class="'+$(realUserName).attr('class')+' form-control" value="'+ $(realUserName).text() +'" aria-describedby="basic-addon1">'
        );
 
        $(userDescription).replaceWith(
-         '<input type="text" class="form-control" value="'+ $(userDescription).text() +'" aria-describedby="basic-addon1">'
+         '<input type="text" class="'+$(userDescription).attr('class')+' form-control" value="'+ $(userDescription).text() +'" aria-describedby="basic-addon1">'
        );
 
        var profilePic = $('.profilePictureImg');
@@ -42,39 +42,47 @@ $(function(){
 
        var editButton = $(this);
        $(editButton).replaceWith(
-        '<form action="" method="" class="">'
-        +
         '<a href="/myProfile" class="btn btn-default">Cancel</a>'
         +
-        '<input type="submit" value="Save Changes" class="updateUser btn btn-default" id="">'
-        +
-        '</form>'
+        '<input type="button" onClick="updateUser();" value="Save Changes" class="updateUser btn btn-default">'
        );
    });
 
    $('.updateUser').on('click', function(e){
+     console.log("clicked");
      var realUserName = $('.realName');
      var userDescription = $('.userDescription');
+   });
+ })
+
+function updateUser(){
+     console.log('clicked');
+     var realUserName = $('.realName');
+     var userDescription = $('.userDescription');
+     console.log($(realUserName).val());
+     console.log( $(userDescription).val());
      $.ajax({
        url: "/editUser",
        type: "POST",
        dataType: "json",
-       data: {
-         realName: $(realUserName).text(),
-         userDescription: $(userDescription).text()
-       },
+       data: JSON.stringify({
+         realName: $(realUserName).val(),
+         userDescription: $(userDescription).val()
+       }),
        contentType: "application/json",
        cache: false,
        timeout: 5000,
        complete: function(){
          console.log("Process complete");
+         //window.location = '/myprofile';
        },
        success: function(){
          console.log("process success");
+         window.location = '/myProfile';
        },
-       error: function(){
+       error: function(e){
          console.log("process error");
+         console.log(e.statusText)
        },
      });
-   });
- })
+}

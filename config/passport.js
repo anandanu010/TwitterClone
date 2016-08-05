@@ -28,6 +28,8 @@ module.exports = function(passport){
         }
         else {
          var newUser = new User();
+         newUser.name = req.body.name;
+         newUser.description = "Enter your description here";
          newUser.username = username;
          newUser.password = newUser.generateHash(password);
          newUser.admin = false;

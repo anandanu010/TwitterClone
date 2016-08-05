@@ -34,7 +34,7 @@ router.get('/myprofile', isLoggedIn, function(req, res){
   // Use our status model to find everything via find
   Status.find({'username': req.user.username},function(err, allStatus){
       if (err) res.send(err);
-      console.log(allStatus);
+      //console.log(allStatus);
       res.render('profile', {user: req.user, statuses: allStatus});
   });
 })
@@ -79,6 +79,12 @@ router.post('/saveStatus', isLoggedIn, function(req,res){
 router.post('/editUser', isLoggedIn, function(req,res){
   console.log('Updating user %j details', req.user);
   console.log(req.body);
+  User.findById(req.user._id, function(err, userToUpdate){
+     console.log(userToUpdate);
+     userToUpdate
+  });
+  res.json({ success: true })
+  //res.sendStatus(302);
 });
 
 router.get('/logout', function(req, res) {
