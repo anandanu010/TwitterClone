@@ -28,6 +28,8 @@ $(function(){
    $('.editUser').on('click', function(e){
        var realUserName = $('.realName');
        var userDescription = $('.userDescription');
+       var uploadForm = $('#uploadForm').toggle();
+       var jumbotron = $('#profilePageJumbo').addClass('redBorder');
 
        $(realUserName).replaceWith(
          '<input type="text" class="'+$(realUserName).attr('class')+' form-control" value="'+ $(realUserName).text() +'" aria-describedby="basic-addon1">'
@@ -53,12 +55,35 @@ $(function(){
      var realUserName = $('.realName');
      var userDescription = $('.userDescription');
    });
- })
+
+   $('#file').change(function() {
+      var data = new FormData();
+      jQuery.each(jQuery('#file')[0].files, function(i, file) {
+         data.append('file-'+i, file);
+      });
+      
+      $.ajax({
+          url: '/uploadPic',
+          data: data,
+          cache: false,
+          contentType: false,
+          processData: false,
+          type: 'POST',
+          success: function(data){
+             alert(data);
+          }
+      });
+      console.log("changed!!");
+      //$('#uploadForm').submit();
+   }); 
+})
+
 
 function updateUser(){
      console.log('clicked');
      var realUserName = $('.realName');
      var userDescription = $('.userDescription');
+     console.log(profilePicUpload);
      console.log($(realUserName).val());
      console.log( $(userDescription).val());
      $.ajax({
@@ -78,7 +103,7 @@ function updateUser(){
        },
        success: function(){
          console.log("process success");
-         window.location = '/myProfile';
+         //window.location = '/myProfile';
        },
        error: function(e){
          console.log("process error");

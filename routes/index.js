@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-
 var Status = require('../models/status');
 var User = require('../models/user');
+var busboy = require('connect-busboy');
+var fs = require('fs');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Whitter!!' });
@@ -78,11 +79,12 @@ router.post('/saveStatus', isLoggedIn, function(req,res){
 
 router.post('/editUser', isLoggedIn, function(req,res){
   console.log('Updating user %j details', req.user);
-  console.log(req.body);
+  console.log();
+  console.log('----------------------------');
   User.findById(req.user._id, function(err, userToUpdate){
      console.log(userToUpdate);
      userToUpdate.name = req.body.realName;
-     userToUpdate.description = req..body.userDescription;
+     userToUpdate.description = req.body.userDescription;
 
      userToUpdate.save(function(err){
        if (err) res.send(err);
@@ -92,6 +94,32 @@ router.post('/editUser', isLoggedIn, function(req,res){
   });
 });
 
+router.post('/uploadPic', isLoggedIn, function(req,res){
+   console.log('uploading pic');
+   console.log(__dirname);
+   console.log(process.env.PWD);
+   req.pipe(req.busboy);
+   var fstream;
+   var userFileLocation
+   req.busboy.on('file', function (fieldname, file, filename) {
+      console.log("Uploading" + filename);
+      userFileLocation = '/img/' + filename;
+      fstream = fs.createWriteStream(process.env.PWD + '/public/img/' + filename);
+      file.pipe(fstream);
+      fstream.on('close', function() {
+         console.log("Upload finished of " + filename);
+      });
+   });
+   
+   User.findById(req.user._id, function(err, userToUpdate){
+     userToUpdate.headerImage = userFileLocation;
+     userToUpdate.save(function(err){
+       if (err) res.send(err);
+       console.log('User details updated');
+       res.status(304);
+     });
+   });
+});
 router.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');

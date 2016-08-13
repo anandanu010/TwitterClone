@@ -9,7 +9,9 @@ var userSchema = mongoose.Schema({
     password: {type: String, required: true},
     admin: Boolean,
     created_at:  { type: Date, default: Date.now },
-    updated_at:  { type: Date, default: Date.now }
+    updated_at:  { type: Date, default: Date.now },
+    headerImage: String,
+    profileImage: String
 });
 
 userSchema.pre('save', function(next){
