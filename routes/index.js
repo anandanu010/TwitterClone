@@ -94,10 +94,7 @@ router.post('/editUser', isLoggedIn, function(req,res){
   });
 });
 
-router.post('/uploadPic', isLoggedIn, function(req,res){
-   console.log('uploading pic');
-   console.log(__dirname);
-   console.log(process.env.PWD);
+router.post('/uploadHeaderPic', isLoggedIn, function(req,res){
    req.pipe(req.busboy);
    var fstream;
    var userFileLocation
@@ -108,18 +105,43 @@ router.post('/uploadPic', isLoggedIn, function(req,res){
       file.pipe(fstream);
       fstream.on('close', function() {
          console.log("Upload finished of " + filename);
+         User.findById(req.user._id, function(err, userToUpdate){
+             userToUpdate.headerImage = userFileLocation;
+             userToUpdate.save(function(err){
+             if (err) res.send(err);
+                console.log('User details updated');
+                res.status(200).send(userFileLocation);
+             });
+         });
+
+      });
+   });   
+});
+
+router.post('/uploadProfilePic', isLoggedIn, function(req,res){
+   req.pipe(req.busboy);
+   var fstream;
+   var userFileLocation
+   req.busboy.on('profileFileUpload', function (fieldname, file, filename) {
+      console.log("Uploading" + filename);
+      userFileLocation = '/img/' + filename;
+      fstream = fs.createWriteStream(process.env.PWD + '/public/img/' + filename);
+      file.pipe(fstream); 
+      fstream.on('close', function() {
+         console.log("Upload finished of " + filename);
+         User.findById(req.user._id, function(err, userToUpdate){
+             userToUpdate.profileImage = userFileLocation;
+             userToUpdate.save(function(err){
+             if (err) res.send(err);
+                console.log('User details updated');
+                res.status(200).send(userFileLocation);
+             });
+         });
+
       });
    });
-   
-   User.findById(req.user._id, function(err, userToUpdate){
-     userToUpdate.headerImage = userFileLocation;
-     userToUpdate.save(function(err){
-       if (err) res.send(err);
-       console.log('User details updated');
-       res.status(304);
-     });
-   });
 });
+
 router.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');

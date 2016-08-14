@@ -29,7 +29,9 @@ $(function(){
        var realUserName = $('.realName');
        var userDescription = $('.userDescription');
        var uploadForm = $('#uploadForm').toggle();
+       var uploadProfileForm = $('#uploadProfileForm').toggle()
        var jumbotron = $('#profilePageJumbo').addClass('redBorder');
+       var profilePic = $('#profilePictureImg').addClass('redBorder');
 
        $(realUserName).replaceWith(
          '<input type="text" class="'+$(realUserName).attr('class')+' form-control" value="'+ $(realUserName).text() +'" aria-describedby="basic-addon1">'
@@ -58,19 +60,25 @@ $(function(){
 
    $('#file').change(function() {
       var data = new FormData();
+      var headerImage = $('#profilePageJumbo');
       jQuery.each(jQuery('#file')[0].files, function(i, file) {
          data.append('file-'+i, file);
       });
       
       $.ajax({
-          url: '/uploadPic',
+          url: '/uploadHeaderPic',
           data: data,
           cache: false,
           contentType: false,
           processData: false,
           type: 'POST',
           success: function(data){
-             alert(data);
+             alert("upload successful");
+             headerImage.css('background-image','url(' + data + ')');
+          },
+          error: function(e){
+            console.log("process error");
+            console.log(e.statusText);
           }
       });
       console.log("changed!!");
