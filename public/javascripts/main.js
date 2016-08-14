@@ -58,13 +58,13 @@ $(function(){
      var userDescription = $('.userDescription');
    });
 
-   $('#file').change(function() {
+   $('#headerImageUpload').change(function() {
       var data = new FormData();
       var headerImage = $('#profilePageJumbo');
-      jQuery.each(jQuery('#file')[0].files, function(i, file) {
+      jQuery.each(jQuery('#headerImageUpload')[0].files, function(i, file) {
          data.append('file-'+i, file);
       });
-      
+
       $.ajax({
           url: '/uploadHeaderPic',
           data: data,
@@ -82,8 +82,32 @@ $(function(){
           }
       });
       console.log("changed!!");
-      //$('#uploadForm').submit();
-   }); 
+   });
+
+   $('#profileFileUpload').change(function() {
+      var data = new FormData();
+      var profileImage = $('#profilePictureImg');
+      jQuery.each(jQuery('#profileFileUpload')[0].files, function(i, file) {
+         data.append('file-'+i, file);
+      });
+
+      $.ajax({
+          url: '/uploadProfilePic',
+          data: data,
+          cache: false,
+          contentType: false,
+          processData: false,
+          type: 'POST',
+          success: function(data){
+             alert("upload successful");
+             profileImage.css('background-image','url(' + data + ')');
+          },
+          error: function(e){
+            console.log("process error");
+            console.log(e.statusText);
+          }
+      });
+   });
 })
 
 
