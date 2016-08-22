@@ -18,11 +18,7 @@ $(function(){
       +
       '</form>'
      );
-      var editButton = $(liElement).children('.buttons').remove()
-       //var parameters = { search: $(this).val() };
-        // $.get( '/searching',parameters, function(data) {
-      //   $('#results').html(data);
-      // });
+      var editButton = $(liElement).children('.buttons').remove();
    });
 
    $('.editUser').on('click', function(e){
@@ -81,7 +77,6 @@ $(function(){
             console.log(e.statusText);
           }
       });
-      console.log("changed!!");
    });
 
    $('#profileFileUpload').change(function() {
@@ -115,9 +110,7 @@ function updateUser(){
      console.log('clicked');
      var realUserName = $('.realName');
      var userDescription = $('.userDescription');
-     console.log(profilePicUpload);
-     console.log($(realUserName).val());
-     console.log( $(userDescription).val());
+     var username = $('.username').text();
      $.ajax({
        url: "/editUser",
        type: "POST",
@@ -129,16 +122,11 @@ function updateUser(){
        contentType: "application/json",
        cache: false,
        timeout: 5000,
-       complete: function(){
-         console.log("Process complete");
-         //window.location = '/myprofile';
-       },
        success: function(){
          console.log("process success");
-         //window.location = '/myProfile';
+         window.location = '/'+username.replace('@','');
        },
        error: function(e){
-         console.log("process error");
          console.log(e.statusText)
        },
      });

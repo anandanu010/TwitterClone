@@ -61,20 +61,6 @@ ul {
    text-align:center;
 }
 
-#fileInput{
-   position: absolute;
-   opacity: 0;
-   -moz-opacity: 0;
-   filter: alpha(opacity=0);
-}
-
-#fakeFile{
-   position:absolute;
-   top 0px;
-   left 0px;
-   z-index:1;
-}
-
 .tweetToolbar{
    padding-top:20px;
 }
@@ -100,4 +86,50 @@ ul {
     border-style: solid;
     border-width: 10px;
     border-color: red;
+}
+
+#userStats {
+  background-color: white;
+  border-bottom: 1px solid rgb(227, 227, 227);
+}
+
+.floatMeRight {
+  float:right;
+}
+
+.uploadProfileForm {
+  text-align:center;
+  display:none;
+  position: relative;
+  top: 50%;
+  bottom: 50%;
+}
+
+#twitterStatuses {
+  background-color:white;
+}
+
+#userProfileImage{
+  height:50px;
+  width:70px;
+  float:left;
+  padding-right:20px;
+}
+
+#navBarProfileImage{
+  height:32px;
+  width:32px
+}
+
+#uploadForm {
+  text-align:center;
+  display:none;
+  position: relative;
+  top: 50%;
+  bottom: 50%;
+}
+
+#uploadProfileForm{
+  display:none;
+  margin-top:-150px;
 }

@@ -30,6 +30,11 @@ router.post('/signup', passport.authenticate('user-signup', {
   failureFlash: true,
 }));
 
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
 router.get('/myprofile', isLoggedIn, function(req, res){
   console.log('Loading all statuses for user', req.user);
   // Use our status model to find everything via find
@@ -37,6 +42,28 @@ router.get('/myprofile', isLoggedIn, function(req, res){
       if (err) res.send(err);
       //console.log(allStatus);
       res.render('profile', {user: req.user, statuses: allStatus});
+  });
+})
+
+router.get('/:username', isLoggedIn, function(req, res, next){
+  var isCurrentUser = false;
+  var username = req.params.username;
+  // Use our status model to find everything via find
+  User.findOne({'username': username}, function(err, user){
+    if (err) res.send(err);
+    if(!user) {
+      // Render 404 page here user not found...for now we are just redirecting catch all 404 rule
+      next();
+    }else {
+      Status.find({'username': username},function(err, allStatus){
+        if(username === req.user.username){
+          console.log('Username is person that is logged in....');
+          isCurrentUser = true;
+        }
+        if (err) res.send(err);
+        res.render('profile', {user: user, statuses: allStatus, isCurrentUser: isCurrentUser});
+      });
+    }
   });
 })
 
@@ -78,11 +105,7 @@ router.post('/saveStatus', isLoggedIn, function(req,res){
 });
 
 router.post('/editUser', isLoggedIn, function(req,res){
-  console.log('Updating user %j details', req.user);
-  console.log();
-  console.log('----------------------------');
   User.findById(req.user._id, function(err, userToUpdate){
-     console.log(userToUpdate);
      userToUpdate.name = req.body.realName;
      userToUpdate.description = req.body.userDescription;
 
@@ -115,7 +138,7 @@ router.post('/uploadHeaderPic', isLoggedIn, function(req,res){
          });
 
       });
-   });   
+   });
 });
 
 router.post('/uploadProfilePic', isLoggedIn, function(req,res){
@@ -126,7 +149,7 @@ router.post('/uploadProfilePic', isLoggedIn, function(req,res){
       console.log("Uploading" + filename);
       userFileLocation = '/img/' + filename;
       fstream = fs.createWriteStream(process.env.PWD + '/public/img/' + filename);
-      file.pipe(fstream); 
+      file.pipe(fstream);
       fstream.on('close', function() {
          console.log("Upload finished of " + filename);
          User.findById(req.user._id, function(err, userToUpdate){
@@ -140,11 +163,6 @@ router.post('/uploadProfilePic', isLoggedIn, function(req,res){
 
       });
    });
-});
-
-router.get('/logout', function(req, res) {
-  req.logout();
-  res.redirect('/');
 });
 
 module.exports = router;

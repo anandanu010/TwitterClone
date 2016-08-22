@@ -5,16 +5,16 @@ extends layout
 block content
   div.alert-danger #{message}
   form(action="/signup" method="POST")
-    label Name:
+    label Full Name:
     input(type="text" name="name")
+    br
+    label Email:
+    input(type="email" name="email")
     br
     label Username:
     input(type="text" name="username")
     br
     label Password:
     input(type="password" name="password")
-    br
-    label Email:
-    input(type="email" name="email")
     br
     input(type="submit" value="Submit")
