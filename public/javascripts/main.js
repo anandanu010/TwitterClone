@@ -52,7 +52,7 @@ $(function(){
      // Gives us the username to follow
      var username = $('.username').text().replace('@','');
      var followButton = $('#follow');
-     console.log(followButton); 
+     console.log(followButton);
 
     $.ajax({
       url: '/addFollower',
@@ -69,6 +69,34 @@ $(function(){
         // Change the button to following and disable the button
         $(followButton).val('Following');
         $(followButton).attr('id','unfollow');
+      },
+      error: function(e){
+        console.log('error');
+        console.log(e.statusText);
+      },
+    });
+   });
+
+   $('#unfollow').on('click', function(e){
+     // Gives us the username to follow
+     var username = $('.username').text().replace('@','');
+     var followButton = $('#unfollow');
+
+    $.ajax({
+      url: '/removeFollower',
+      type: "POST",
+      dataType: "json",
+      data: JSON.stringify({
+        userToRemove: username
+      }),
+      contentType: "application/json",
+      cache: false,
+      timeout: 5000,
+      success: function(){
+        console.log("process success");
+        // Change the button to following and disable the button
+        $(followButton).val('Follow');
+        $(followButton).attr('id','follow');
       },
       error: function(e){
         console.log('error');

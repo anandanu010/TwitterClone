@@ -55,6 +55,16 @@ router.post('/addFollower', isLoggedIn, function(req,res){
   });
 });
 
+router.post('/removeFollower', isLoggedIn, function(req,res){
+  User.update({"_id": req.user._id},{ "$pull": {"following": req.body.userToRemove}}, function(err,worked){
+    if (err) console.log(err);
+   });
+  User.update({"username":userToFollow},{ "$pull": {"followers": req.user.username}}, function(err,worked){
+    if(err) console.log(err);
+    res.json({ success: true });
+  });
+});
+
 router.get('/following', isLoggedIn, function(req,res){
   User.findById(req.user._id, {following: true}, function(err, followers){
    console.log(followers);
