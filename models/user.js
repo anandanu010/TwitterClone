@@ -11,7 +11,9 @@ var userSchema = mongoose.Schema({
     created_at:  { type: Date, default: Date.now },
     updated_at:  { type: Date, default: Date.now },
     headerImage: String,
-    profileImage: String
+    profileImage: String,
+    followers: {type: Array},
+    following: {type: Array}
 });
 
 userSchema.pre('save', function(next){

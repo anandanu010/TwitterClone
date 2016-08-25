@@ -48,6 +48,33 @@ $(function(){
        );
    });
 
+   $('.follow').on('click', function(e){
+     // Gives us the username to follow
+     var username = $('.username').text().replace('@','');
+     console.log(username);
+
+    $.ajax({
+      url: '/addFollower',
+      type: "POST",
+      dataType: "json",
+      data: JSON.stringify({
+        userToFollow: username
+      }),
+      contentType: "application/json",
+      cache: false,
+      timeout: 5000,
+      success: function(){
+        console.log("process success");
+        // Change the button to following and disable the button
+        $this.val('Following');
+        $this.attr("disabled", true);
+      },
+      error: function(e){
+        console.log(e.statusText)
+      },
+    });
+   });
+
    $('.updateUser').on('click', function(e){
      console.log("clicked");
      var realUserName = $('.realName');
@@ -95,7 +122,7 @@ $(function(){
           type: 'POST',
           success: function(data){
              alert("upload successful");
-             profileImage.css('background-image','url(' + data + ')');
+             profileImage.attr('src', data);
           },
           error: function(e){
             console.log("process error");

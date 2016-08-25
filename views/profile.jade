@@ -80,10 +80,13 @@ block content
                 a(href='#') Lists
                 span(id="numOfLists") N/A
               li(class="floatMeRight")
-                if isCurrentUser
-                  input(type="submit", class="editUser btn btn-default", value="Edit Profile")
+              if isCurrentUser
+                input(type="submit", class="editUser btn btn-default", value="Edit Profile")
+              else
+                if isFollowing
+                   input(type="submit", class="btn btn-default", id="follow", value="Following")
                 else
-                  input(type="submit", class="editUser btn btn-default", value="Follow")
+                   input(type="submit", class="btn btn-default", id="follow", value="Follow")
 
    
   .container

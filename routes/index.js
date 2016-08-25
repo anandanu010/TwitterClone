@@ -40,14 +40,31 @@ router.get('/myprofile', isLoggedIn, function(req, res){
   // Use our status model to find everything via find
   Status.find({'username': req.user.username},function(err, allStatus){
       if (err) res.send(err);
-      //console.log(allStatus);
       res.render('profile', {user: req.user, statuses: allStatus});
   });
 })
 
+router.post('/addFollower', isLoggedIn, function(req,res){
+  var userToFollow = req.body.userToFollow;
+  User.update({"_id": req.user._id},{ "$push": {"following": req.body.userToFollow}}, function(err,worked){
+    if(err) console.log("ERROR" + err);
+    res.json({ success: true });
+   });
+});
+
+router.get('/following', isLoggedIn, function(req,res){
+  User.findById(req.user._id, {following: true}, function(err, followers){
+   console.log(followers);
+   console.log(followers.following);
+  });
+});
+
 router.get('/:username', isLoggedIn, function(req, res, next){
   var isCurrentUser = false;
   var username = req.params.username;
+  var isFollowing = false;
+  if(req.user.following.indexOf(username) >= 0){isFollowing = true;}
+
   // Use our status model to find everything via find
   User.findOne({'username': username}, function(err, user){
     if (err) res.send(err);
@@ -61,7 +78,7 @@ router.get('/:username', isLoggedIn, function(req, res, next){
           isCurrentUser = true;
         }
         if (err) res.send(err);
-        res.render('profile', {user: user, statuses: allStatus, isCurrentUser: isCurrentUser});
+        res.render('profile', {user: user, statuses: allStatus, isCurrentUser: isCurrentUser, isFollowing: isFollowing});
       });
     }
   });
@@ -144,8 +161,8 @@ router.post('/uploadHeaderPic', isLoggedIn, function(req,res){
 router.post('/uploadProfilePic', isLoggedIn, function(req,res){
    req.pipe(req.busboy);
    var fstream;
-   var userFileLocation
-   req.busboy.on('profileFileUpload', function (fieldname, file, filename) {
+   var userFileLocation;
+   req.busboy.on('file', function (fieldname, file, filename) {
       console.log("Uploading" + filename);
       userFileLocation = '/img/' + filename;
       fstream = fs.createWriteStream(process.env.PWD + '/public/img/' + filename);
