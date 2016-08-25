@@ -48,10 +48,11 @@ $(function(){
        );
    });
 
-   $('.follow').on('click', function(e){
+   $('#follow').on('click', function(e){
      // Gives us the username to follow
      var username = $('.username').text().replace('@','');
-     console.log(username);
+     var followButton = $('#follow');
+     console.log(followButton); 
 
     $.ajax({
       url: '/addFollower',
@@ -66,11 +67,12 @@ $(function(){
       success: function(){
         console.log("process success");
         // Change the button to following and disable the button
-        $this.val('Following');
-        $this.attr("disabled", true);
+        $(followButton).val('Following');
+        $(followButton).attr('id','unfollow');
       },
       error: function(e){
-        console.log(e.statusText)
+        console.log('error');
+        console.log(e.statusText);
       },
     });
    });
