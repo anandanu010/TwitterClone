@@ -69,10 +69,10 @@ block content
                 span(id="numOfTweets") #{statuses.length}
               li
                 a(href='#') Following
-                span(id="numFollowing") N/A
+                span(id="numFollowing") #{user.following.length}
               li
                 a(href='#') Followers
-                span(id="numOfFollowers") N/A
+                span(id="numOfFollowers") #{user.followers.length}
               li
                 a(href='#') Likes
                 span(id="numOfLikes") N/A
@@ -81,12 +81,12 @@ block content
                 span(id="numOfLists") N/A
               li(class="floatMeRight")
               if isCurrentUser
-                input(type="submit", class="editUser btn btn-default", value="Edit Profile")
+                input(type="submit", class="editUser btn btn-info btn-md", value="Edit Profile")
               else
                 if isFollowing
-                   input(type="submit", class="btn btn-default", id="follow", value="Following")
+                   input(type="submit", class="btn btn-info btn-md", id="follow", value="Following")
                 else
-                   input(type="submit", class="btn btn-default", id="follow", value="Follow")
+                   input(type="submit", class="btn btn-info btn-md", id="follow", value="Follow")
 
    
   .container

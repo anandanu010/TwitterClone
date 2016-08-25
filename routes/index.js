@@ -50,6 +50,9 @@ router.post('/addFollower', isLoggedIn, function(req,res){
     if(err) console.log("ERROR" + err);
     res.json({ success: true });
    });
+  User.update({"username":userToFollow},{ "$push": {"followers": req.user.username}}, function(err,worked){
+    if(err) console.log(err);
+  });
 });
 
 router.get('/following', isLoggedIn, function(req,res){
