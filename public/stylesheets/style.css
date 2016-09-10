@@ -42,6 +42,11 @@ ul {
    text-align:center;
 }
 
+#profilePictureHomepage {
+   margin-top:50px;
+   text-align:center;
+}
+
 #profilePictureImg {
    border-style: solid;
    border-width: 5px;
@@ -51,10 +56,24 @@ ul {
    width: 250px
 }
 
+#profilePictureImgHomepage {
+   border-style: solid;
+   border-width: 5px;
+   border-radius: 25px;
+   border-color: white;
+   height: 100px;
+   width: 100px
+}
+
 #userProfileCard {
    text-align: left;
    margin-left: 55px;
    margin-top: 30px;
+}
+
+#userProfileCardHomepage {
+   text-align: left;
+   margin-top: 50px;
 }
 
 #statusTitle{
@@ -108,6 +127,12 @@ ul {
 #twitterStatuses {
   background-color:white;
 }
+
+#twitterStatusesHomepage {
+  background-color:white;
+  margin-top:50px;
+}
+
 
 #userProfileImage{
   height:50px;

@@ -15,7 +15,7 @@ router.get('/login', function(req,res){
 });
 
 router.post('/login', passport.authenticate('user-login', {
-  successRedirect: '/myprofile',
+  successRedirect: '/homepage',
   failureRedirect: '/login',
   failureFlash: true,
 }));
@@ -35,10 +35,49 @@ router.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
+router.get('/homepage', function(req,res){
+    console.log('Loading all user follows tweets');
+    var usersFollowing = req.user.following;
+    var query = {};
+    query["$or"] = [];
+    usersFollowing.forEach(function(entry){
+      query["$or"].push({
+        'username': entry
+      });
+    });
+    Status.find(query).sort({'created_at': -1}).exec(function(err, allStatus){
+        if (err) res.send(err);
+        var statusUsersDict = [];
+        var itemsProcessed = 0;
+        allStatus.forEach(function(entry){
+           User.findOne({'username': entry.username}, function(err, user){
+              if(err) console.log(err);
+
+              statusUsersDict.push({
+                'status': entry,
+                'user': user
+              });
+              itemsProcessed++;
+              if (itemsProcessed === allStatus.length){
+                callback(req,res,statusUsersDict);
+              }
+           });
+       });
+  });
+});
+
+function callback(req,res, dict){
+   dict.forEach(function(entry){
+     console.log(entry.status);
+    });
+   res.render('homepage', {user: req.user,tweetsAndUsersDict: dict});
+}
+
 router.get('/myprofile', isLoggedIn, function(req, res){
   console.log('Loading all statuses for user', req.user);
   // Use our status model to find everything via find
-  Status.find({'username': req.user.username},function(err, allStatus){
+  Status.find({'username': req.user.username}).sort({'created_at': -1}).exec(function(err, allStatus){
+  //Status.find({'username': req.user.username},function(err, allStatus){
       if (err) res.send(err);
       res.render('profile', {user: req.user, statuses: allStatus});
   });
@@ -47,7 +86,7 @@ router.get('/myprofile', isLoggedIn, function(req, res){
 router.post('/addFollower', isLoggedIn, function(req,res){
   var userToFollow = req.body.userToFollow;
   User.update({"_id": req.user._id},{ "$push": {"following": req.body.userToFollow}}, function(err,worked){
-    if(err) console.log("ERROR" + err);
+    if(err) console.log(err);
     res.json({ success: true });
    });
   User.update({"username":userToFollow},{ "$push": {"followers": req.user.username}}, function(err,worked){
@@ -85,9 +124,9 @@ router.get('/:username', isLoggedIn, function(req, res, next){
       // Render 404 page here user not found...for now we are just redirecting catch all 404 rule
       next();
     }else {
-      Status.find({'username': username},function(err, allStatus){
+      Status.find({'username': username}).sort({'created_at': -1}).exec(function(err, allStatus){
+      //Status.find({'username': username},function(err, allStatus){
         if(username === req.user.username){
-          console.log('Username is person that is logged in....');
           isCurrentUser = true;
         }
         if (err) res.send(err);
