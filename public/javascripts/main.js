@@ -98,7 +98,6 @@ $(function(){
         $(followButton).attr('id','follow');
       },
       error: function(e){
-        console.log('error');
         console.log(e.statusText);
       },
     });
