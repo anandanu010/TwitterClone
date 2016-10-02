@@ -128,7 +128,6 @@ $(function(){
              headerImage.css('background-image','url(' + data + ')');
           },
           error: function(e){
-            console.log("process error");
             console.log(e.statusText);
           }
       });
