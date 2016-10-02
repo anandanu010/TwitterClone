@@ -3,10 +3,21 @@ from selenium.webdriver.common.keys import Keys
 
 browser = webdriver.Firefox()
 
-browser.get('http://localhost:49160/')
+browser.get('http://localhost:3000/')
 assert 'Whitter' in browser.title
 
-elem = browser.find_element_by_name('p')  # Find the search box
-elem.send_keys('seleniumhq' + Keys.RETURN)
+signup_name = browser.find_element_by_name('name')
+signup_email = browser.find_element_by_name('email')
+signup_username = browser.find_element_by_name('signup_username')
+signup_password = browser.find_element_by_name('signup_password')
+signup_button = browser.find_element_by_name('signup_button')
 
-browser.quit()
+print signup_button
+signup_name.send_keys('user1')
+signup_email.send_keys('user1@test.com')
+signup_username.send_keys('user1')
+signup_password.send_keys('passw0rd')
+
+signup_button.click()
+
+#browser.quit()

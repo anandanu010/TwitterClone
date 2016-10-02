@@ -16,17 +16,13 @@ router.get('/login', function(req,res){
 
 router.post('/login', passport.authenticate('user-login', {
   successRedirect: '/homepage',
-  failureRedirect: '/login',
+  failureRedirect: '/',
   failureFlash: true,
 }));
 
-router.get('/signup', function(req,res){
-  res.render('signup', {message: req.flash('signupMessage')});
-});
-
 router.post('/signup', passport.authenticate('user-signup', {
   successRedirect: '/myprofile',
-  failureRedirect: '/signup',
+  failureRedirect: '/',
   failureFlash: true,
 }));
 
