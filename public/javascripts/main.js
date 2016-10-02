@@ -93,7 +93,6 @@ $(function(){
       cache: false,
       timeout: 5000,
       success: function(){
-        console.log("process success");
         // Change the button to following and disable the button
         $(followButton).val('Follow');
         $(followButton).attr('id','follow');
