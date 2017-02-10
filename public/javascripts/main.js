@@ -8,14 +8,10 @@ $(function(){
       var deleteElement = $(liElement).children('.delete'); // gets our delete button
 
       $(actualStatusText).replaceWith(
-      '<form action="/saveStatus" method="POST" class="editForm">'
-      +
-      '<input type="hidden" name="statusid" value=' + ID + '>'
-      +
-      '<textarea id=' + ID + ' name="editedStatus" cols="55" class="editedStatus">' + $(actualStatusText).text() +'</textarea>'
-      +
-      '<input type="submit" value="Update Status" class="updateStatus btn btn-default" id=' + ID + '>'
-      +
+      '<form action="/saveStatus" method="POST" class="editForm">' +
+      '<input type="hidden" name="statusid" value=' + ID + '>' +
+      '<textarea id=' + ID + ' name="editedStatus" cols="55" class="editedStatus">' + $(actualStatusText).text() +'</textarea>' +
+      '<input type="submit" value="Update Status" class="updateStatus btn btn-default" id=' + ID + '>' +
       '</form>'
      );
       var editButton = $(liElement).children('.buttons').remove();
@@ -25,7 +21,7 @@ $(function(){
        var realUserName = $('.realName');
        var userDescription = $('.userDescription');
        var uploadForm = $('#uploadForm').toggle();
-       var uploadProfileForm = $('#uploadProfileForm').toggle()
+       var uploadProfileForm = $('#uploadProfileForm').toggle();
        var jumbotron = $('#profilePageJumbo').addClass('redBorder');
        var profilePic = $('#profilePictureImg').addClass('redBorder');
 
@@ -42,8 +38,7 @@ $(function(){
 
        var editButton = $(this);
        $(editButton).replaceWith(
-        '<a href="/myProfile" class="btn btn-default">Cancel</a>'
-        +
+        '<a href="/myProfile" class="btn btn-default">Cancel</a>'+
         '<input type="button" onClick="updateUser();" value="Save Changes" class="updateUser btn btn-default">'
        );
    });
@@ -156,7 +151,7 @@ $(function(){
           }
       });
    });
-})
+});
 
 
 function updateUser(){
@@ -180,7 +175,7 @@ function updateUser(){
          window.location = '/'+username.replace('@','');
        },
        error: function(e){
-         console.log(e.statusText)
+         console.log(e.statusText);
        },
      });
 }

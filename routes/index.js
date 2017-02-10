@@ -77,7 +77,7 @@ router.get('/myprofile', isLoggedIn, function(req, res){
       if (err) res.send(err);
       res.render('profile', {user: req.user, statuses: allStatus});
   });
-})
+});
 
 router.post('/addFollower', isLoggedIn, function(req,res){
   var userToFollow = req.body.userToFollow;
@@ -130,7 +130,7 @@ router.get('/:username', isLoggedIn, function(req, res, next){
       });
     }
   });
-})
+});
 
 router.post('/delete', isLoggedIn, function(req, res){
   console.log('Deleting status', req.body.statusid);
@@ -138,20 +138,20 @@ router.post('/delete', isLoggedIn, function(req, res){
         if (err) res.send(err);
           res.redirect('/myprofile');
   });
-})
+});
 
 router.post('/newstatus', isLoggedIn, function(req,res){
     // Move this logic to status model or create different model
     console.log('Posting to status api with status %j', req.body.status);
     var status = new Status(); // new instance of status model - as we are adding to the DSB
-    status.status = req.body.status // set the status to status that comes from request
+    status.status = req.body.status; // set the status to status that comes from request
     status.username = req.user.username;
     //save our new status object
     status.save(function(err){
      if (err) res.send(err);
         res.redirect('/myprofile');
     });
-})
+});
 
 router.post('/saveStatus', isLoggedIn, function(req,res){
     console.log('Updating status %j with new status %j',req.body.statusid,req.body.editedStatus);
@@ -185,7 +185,7 @@ router.post('/editUser', isLoggedIn, function(req,res){
 router.post('/uploadHeaderPic', isLoggedIn, function(req,res){
    req.pipe(req.busboy);
    var fstream;
-   var userFileLocation
+   var userFileLocation;
    req.busboy.on('file', function (fieldname, file, filename) {
       console.log("Uploading" + filename);
       userFileLocation = '/img/' + filename;
