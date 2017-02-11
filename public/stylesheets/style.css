@@ -1,9 +1,27 @@
+html {
+  background-color: white;
+}
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #f5f8fa!important;
   color: #292f33;
+  /*height: 100%;*/
 }
 
+.fullscreen{
+  position: relative;
+  background-color: white;
+}
+
+.center {
+  position: absolute;
+  background-color: white !important;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  /*height:100vh;*/
+  /*margin-bottom: 0px !important;*/
+}
 a {
   color: #00B7FF;
 }

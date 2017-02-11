@@ -5,7 +5,7 @@ var Status = require('../models/status');
 var User = require('../models/user');
 var busboy = require('connect-busboy');
 var fs = require('fs');
-/* GET home page. */
+
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Whitter!!' });
 });
@@ -36,33 +36,37 @@ router.get('/homepage', function(req,res){
     var usersFollowing = req.user.following;
     var query = {};
     query["$or"] = [];
-    usersFollowing.forEach(function(entry){
-      query["$or"].push({
-        'username': entry
+    if (usersFollowing.length > 0){
+      usersFollowing.forEach(function(entry){
+        query["$or"].push({
+          'username': entry
+        });
       });
-    });
-    Status.find(query).sort({'created_at': -1}).exec(function(err, allStatus){
-        if (err) res.send(err);
-        var statusUsersDict = [];
-        var itemsProcessed = 0;
-        allStatus.forEach(function(entry){
-           User.findOne({'username': entry.username}, function(err, user){
-              if(err) console.log(err);
+      Status.find(query).sort({'created_at': -1}).exec(function(err, allStatus){
+          if (err) res.send(err);
+          var statusUsersDict = [];
+          var itemsProcessed = 0;
+          allStatus.forEach(function(entry){
+             User.findOne({'username': entry.username}, function(err, user){
+                if(err) console.log(err);
 
-              statusUsersDict.push({
-                'status': entry,
-                'user': user
-              });
-              itemsProcessed++;
-              if (itemsProcessed === allStatus.length){
-                callback(req,res,statusUsersDict);
-              }
-           });
-       });
-  });
+                statusUsersDict.push({
+                  'status': entry,
+                  'user': user
+                });
+                itemsProcessed++;
+                if (itemsProcessed === allStatus.length){
+                  callback(req,res,statusUsersDict);
+                }
+             });
+         });
+    });
+  }else{
+    callback(req, res, []);
+  }
 });
 
-function callback(req,res, dict){
+function callback(req, res, dict){
    dict.forEach(function(entry){
      console.log(entry.status);
     });
