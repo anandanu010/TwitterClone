@@ -1,14 +1,13 @@
-//output:index.html
 extends layout
 
 block content
-  div.jumbotron
-    .container
+  div.jumbotron.center
+    .container.fullscreen
       .row
         div(class="col-sm-6")
           h2 Welcome to #{title}
 
-        div(class="col-sm-4")
+        div(class="col-sm-6")
           div(class="panel panel-default")
             div(class="panel-body")
               form(action="/login" method="POST" class="form-horizontal")
@@ -19,7 +18,7 @@ block content
       .row
          div(class="col-sm-6")
           p Connect with your friends — and other fascinating people. Get in-the-moment updates on the things that interest you. And watch events unfold, in real time, from every angle.
-         div(class="col-sm-4")
+         div(class="col-sm-6")
           div(class="panel panel-default")
             div(class="panel-heading")
               h3(class="panel-title") Signup!

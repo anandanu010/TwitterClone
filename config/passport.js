@@ -32,6 +32,8 @@ module.exports = function(passport){
          newUser.description = "Enter your description here";
          newUser.username = username;
          newUser.password = newUser.generateHash(password);
+         newUser.headerImage = "/img/default_headerImage.jpg";
+         newUser.profileImage = "/img/default_profile.png";
          newUser.admin = false;
          newUser.save(function(err){
            if (err) throw err;
