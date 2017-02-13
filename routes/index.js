@@ -35,13 +35,12 @@ router.get('/homepage', function(req,res){
     console.log('Loading all user follows tweets');
     var usersFollowing = req.user.following;
     var query = {};
-    query["$or"] = [];
+    query.$or = [];
     if (usersFollowing.length > 0){
-      usersFollowing.forEach(function(entry){
-        query["$or"].push({
-          'username': entry
-        });
+      usersFollowing.map(function(entry){
+        query.$or.push({'username': entry});
       });
+
       Status.find(query).sort({'created_at': -1}).exec(function(err, allStatus){
           if (err) res.send(err);
           var statusUsersDict = [];
@@ -77,9 +76,8 @@ router.get('/myprofile', isLoggedIn, function(req, res){
   console.log('Loading all statuses for user', req.user);
   // Use our status model to find everything via find
   Status.find({'username': req.user.username}).sort({'created_at': -1}).exec(function(err, allStatus){
-  //Status.find({'username': req.user.username},function(err, allStatus){
       if (err) res.send(err);
-      res.render('profile', {user: req.user, statuses: allStatus});
+      res.render('profile', {user: req.user,isCurrentUser: true, statuses: allStatus});
   });
 });
 
@@ -140,7 +138,7 @@ router.post('/delete', isLoggedIn, function(req, res){
   console.log('Deleting status', req.body.statusid);
   Status.remove({_id:  req.body.statusid}, function(err,statusDeleted){
         if (err) res.send(err);
-          res.redirect('/myprofile');
+        res.redirect('/myprofile');
   });
 });
 
@@ -153,18 +151,17 @@ router.post('/newstatus', isLoggedIn, function(req,res){
     //save our new status object
     status.save(function(err){
      if (err) res.send(err);
-        res.redirect('/myprofile');
+     res.redirect('/myprofile');
     });
 });
 
 router.post('/saveStatus', isLoggedIn, function(req,res){
-    console.log('Updating status %j with new status %j',req.body.statusid,req.body.editedStatus);
+    console.log('Updating status %j with new status %j', req.body.statusid, req.body.editedStatus);
     Status.findById(req.body.statusid, function(err, statusToUpdate){
       if (err) res.send(err);
       //once we have a valid response update the nextStatus attribute to status passed in
       console.log(statusToUpdate);
       statusToUpdate.status = req.body.editedStatus;
-       //save our callback object
       statusToUpdate.save(function(err){
         if (err) res.send(err);
         console.log('Status updated');
