@@ -1,4 +1,3 @@
-//output:index.html
 extends layout
 
 block content
@@ -35,9 +34,7 @@ block content
     .container
       ul.nav.navbar-nav
         li.active
-          a(href='#') Home
-        li
-          a(href='#about') About
+          a(href="/homepage") Home
       ul.nav.navbar-nav.navbar-right(style="padding-top:10px;")
         li
           form(class="form-inline")
@@ -45,12 +42,13 @@ block content
               input(type="text" class="form-control" placeholder="Search")
             button(type="submit" class="btn btn-default") Submit
         li
-           img(src="#{user.profileImage}" id="navBarProfileImage")
+           a(href="/myprofile")
+             img(src="#{user.profileImage}" id="navBarProfileImage")
         li
            button(type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal") New Tweet
+        li 
+           a(href="/logout") Logout
   .container
-    .row
-
     .row
        div(class="col-sm-3" id="userProfileCardHomepage")
          div(class="col-sm-4" id="profilePictureHomepage")
@@ -63,7 +61,7 @@ block content
                li
                  img(src="#{val.user.profileImage}" id="userProfileImage")
                  p 
-                    strong #{val.user.name} @#{val.user.username} 
+                    a(href="#{val.user.username}") #{val.user.name} @#{val.user.username} 
                     span=val.status.updated_at
                  p(class="statusText")=val.status.status
                hr

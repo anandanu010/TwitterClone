@@ -31,7 +31,7 @@ router.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-router.get('/homepage', function(req,res){
+router.get('/homepage', isLoggedIn, function(req,res){
     console.log('Loading all user follows tweets');
     var usersFollowing = req.user.following;
     var query = {};
@@ -77,17 +77,17 @@ router.get('/myprofile', isLoggedIn, function(req, res){
   // Use our status model to find everything via find
   Status.find({'username': req.user.username}).sort({'created_at': -1}).exec(function(err, allStatus){
       if (err) res.send(err);
-      res.render('profile', {user: req.user,isCurrentUser: true, statuses: allStatus});
+      res.render('profile', {user: req.user, isCurrentUser: true, statuses: allStatus});
   });
 });
 
 router.post('/addFollower', isLoggedIn, function(req,res){
   var userToFollow = req.body.userToFollow;
-  User.update({"_id": req.user._id},{ "$push": {"following": req.body.userToFollow}}, function(err,worked){
+  User.update({"_id": req.user._id}, { "$push": {"following": userToFollow}}, function(err,worked){
     if(err) console.log(err);
     res.json({ success: true });
    });
-  User.update({"username":userToFollow},{ "$push": {"followers": req.user.username}}, function(err,worked){
+  User.update({"username":userToFollow}, { "$push": {"followers": req.user.username}}, function(err,worked){
     if(err) console.log(err);
   });
 });
@@ -96,7 +96,8 @@ router.post('/removeFollower', isLoggedIn, function(req,res){
   User.update({"_id": req.user._id},{ "$pull": {"following": req.body.userToRemove}}, function(err,worked){
     if (err) console.log(err);
    });
-  User.update({"username":userToFollow},{ "$pull": {"followers": req.user.username}}, function(err,worked){
+
+  User.update({"username": req.body.userToRemove},{ "$pull": {"followers": req.user.username}}, function(err,worked){
     if(err) console.log(err);
     res.json({ success: true });
   });
