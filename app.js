@@ -38,7 +38,7 @@ app.use(passport.session());
 app.use(flash());
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/', users);
 
 require('./config/passport')(passport);
 

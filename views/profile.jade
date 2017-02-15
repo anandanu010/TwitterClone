@@ -69,8 +69,8 @@ block content
                if isCurrentUser
                  div.buttons
                     input(type="submit", class="editable btn btn-default",  id= val._id, value="Edit")
-                    form(action="/delete" method="POST")
-                    input(type="hidden", name="statusid", value=val._id)
-                    input(type="submit", value="Delete", class="btn btn-default")
+                    form(action="/deleteStatus" method="POST")
+                      input(type="hidden", name="statusid", value=val._id)
+                      input(type="submit", value="Delete", class="btn btn-default")
                  br
              hr
