@@ -56,8 +56,11 @@ module.exports = function(passport){
    User.findOne({'username': username}, function(err, user){
      if(err) return done(err);
 
-     if(!user) return done(null, false, req.flash('loginMessage', 'No user found.'));
-     if(!user.validPassword(password)) return done(null, false, req.flash('message', 'Wrong password.'));
+     if(!user)
+      return done(null, false, req.flash('message', 'No user found with username ' + username));
+     if(!user.validPassword(password))
+      return done(null, false, req.flash('message', 'Wrong password please try again'));
+
      return done(null, user);
    });
  }
