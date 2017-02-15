@@ -20,10 +20,10 @@ $(function(){
    $('.editUser').on('click', function(e){
        var realUserName = $('.realName');
        var userDescription = $('.userDescription');
-       var uploadForm = $('#uploadForm').toggle();
-       var uploadProfileForm = $('#uploadProfileForm').toggle();
-       var jumbotron = $('#profilePageJumbo').addClass('redBorder');
-       var profilePic = $('#profilePictureImg').addClass('redBorder');
+       $('#uploadForm').toggle();
+       $('#uploadProfileForm').toggle();
+       $('#profilePageJumbo').addClass('redBorder');
+       $('#profilePictureImg').addClass('redBorder');
 
        $(realUserName).replaceWith(
          '<input type="text" class="'+$(realUserName).attr('class')+' form-control" value="'+ $(realUserName).text() +'" aria-describedby="basic-addon1">'

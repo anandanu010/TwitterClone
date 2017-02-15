@@ -47,6 +47,14 @@ ul {
 
 }
 
+#profileButton {
+  padding: 0px 10px 0px 10px;
+}
+
+#logoutButton {
+  padding: 0px 0px 0px 10px;
+}
+
 #profilePageJumbo {
   background-image: url('https://pbs.twimg.com/profile_banners/50110518/1367691415/1500x500');
   height: 500px;

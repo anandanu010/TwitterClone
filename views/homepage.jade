@@ -1,53 +1,7 @@
 extends layout
 
 block content
-  div(class="modal fade" tabindex="-1" role="dialog" id="myModal")
-     div(class="modal-dialog" role="document")
-        div(class="modal-content")
-           div(class="modal-header")
-              h3(class="modal-title") Compose New Tweet
-           div(class="modal-body")
-              div(class="modal-form")
-                 form(class="tweet-form" method="post" action="/newStatus")
-                    div(class="tweet-content")
-                       .row
-                          div(class="col-sm-12")
-                             textarea(rows="4", cols="60", name="status", style="min-width:100%")
-                       .row
-                          div(class="tweetToolbar")
-                             div(class="col-sm-9")
-                                label(class="myFile")
-                                  button(class="btn btn-info btn-sm") Upload file
-                                  input(type="file" name="file" class="btn btn-info btn-sm" id="fileUpload")
-                                label(class="myFile")  
-                                  button(class="btn btn-info btn-sm") Upload GIF
-                                  input(type="file" name="file" class="btn btn-info btn-sm" id="gifUpload")
-                                label(class="myFile")  
-                                  button(type="" value="poll" class="btn btn-info btn-sm") Add Poll
-                                label(class="myFile")
-                                  button(type="" value="location" class="btn btn-info btn-sm") Location
-                             div(class="col-sm-3")
-                                div(class="floatMeRight")
-                                   span(class="counter") 140
-                                   button(type="submit" value="Tweet!!" class="btn btn-info btn-sm") Tweet
-  navbar.navbar.navbar-default.navbar-fixed-top
-    .container
-      ul.nav.navbar-nav
-        li.active
-          a(href="/homepage") Home
-      ul.nav.navbar-nav.navbar-right(style="padding-top:10px;")
-        li
-          form(class="form-inline")
-            div(class="form-group")
-              input(type="text" class="form-control" placeholder="Search")
-            button(type="submit" class="btn btn-default") Submit
-        li
-           a(href="/myprofile")
-             img(src="#{user.profileImage}" id="navBarProfileImage")
-        li
-           button(type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal") New Tweet
-        li 
-           a(href="/logout") Logout
+  include ./menu.jade
   .container
     .row
        div(class="col-sm-3" id="userProfileCardHomepage")

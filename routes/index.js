@@ -7,7 +7,7 @@ var busboy = require('connect-busboy');
 var fs = require('fs');
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Whitter!!' });
+  res.render('index', { title: 'Twitter Clone' });
 });
 
 router.get('/login', function(req,res){
@@ -69,7 +69,7 @@ function callback(req, res, dict){
    dict.forEach(function(entry){
      console.log(entry.status);
     });
-   res.render('homepage', {user: req.user,tweetsAndUsersDict: dict});
+   res.render('homepage', {title: "Home", user: req.user,tweetsAndUsersDict: dict});
 }
 
 router.get('/myprofile', isLoggedIn, function(req, res){
@@ -77,7 +77,7 @@ router.get('/myprofile', isLoggedIn, function(req, res){
   // Use our status model to find everything via find
   Status.find({'username': req.user.username}).sort({'created_at': -1}).exec(function(err, allStatus){
       if (err) res.send(err);
-      res.render('profile', {user: req.user, isCurrentUser: true, statuses: allStatus});
+      res.render('profile', {title: "My Profile", user: req.user, isCurrentUser: true, statuses: allStatus});
   });
 });
 
@@ -114,7 +114,8 @@ router.get('/:username', isLoggedIn, function(req, res, next){
   var isCurrentUser = false;
   var username = req.params.username;
   var isFollowing = false;
-  if(req.user.following.indexOf(username) >= 0){isFollowing = true;}
+  if(req.user.following.indexOf(username) >= 0)
+    isFollowing = true;
 
   // Use our status model to find everything via find
   User.findOne({'username': username}, function(err, user){
@@ -124,12 +125,11 @@ router.get('/:username', isLoggedIn, function(req, res, next){
       next();
     }else {
       Status.find({'username': username}).sort({'created_at': -1}).exec(function(err, allStatus){
-      //Status.find({'username': username},function(err, allStatus){
         if(username === req.user.username){
           isCurrentUser = true;
         }
         if (err) res.send(err);
-        res.render('profile', {user: user, statuses: allStatus, isCurrentUser: isCurrentUser, isFollowing: isFollowing});
+        res.render('profile', {title: user.username + " Profile", user: user, statuses: allStatus, isCurrentUser: isCurrentUser, isFollowing: isFollowing});
       });
     }
   });
