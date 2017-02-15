@@ -3,10 +3,11 @@ extends layout
 block content
   div.jumbotron.center
     .container.fullscreen
+      div.alert-danger.text-center #{message}
       .row
         div(class="col-sm-6")
           h2 Welcome to #{title}
-
+          
         div(class="col-sm-6")
           div(class="panel panel-default")
             div(class="panel-body")
@@ -23,7 +24,6 @@ block content
             div(class="panel-heading")
               h3(class="panel-title") Signup!
             div(class="panel-body")
-             div.alert-danger #{message}
              form(action="/signup" method="POST")
                input(type="text" class="form-control" name="name" placeholder="Full Name")
                input(type="email" class="form-control" name="email" placeholder="Email")

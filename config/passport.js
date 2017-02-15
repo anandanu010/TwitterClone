@@ -16,7 +16,7 @@ module.exports = function(passport){
   passport.use('user-signup', new LocalStrategy({
     usernameField: 'signup_username',
     passwordField: 'signup_password',
-    passReqToCallback: true,
+    passReqToCallback: true
   },
   function(req, username, password, done){
     process.nextTick(function(){
@@ -24,7 +24,8 @@ module.exports = function(passport){
         if(err) return done(err);
 
         if(user){
-          return done(null, false, req.flash('signupMessage', 'That email is already in use.'));
+          console.log("test");
+          return done(null, false, req.flash('message', 'That email is already in use.'));
         }
         else {
          var newUser = new User();
@@ -56,7 +57,7 @@ module.exports = function(passport){
      if(err) return done(err);
 
      if(!user) return done(null, false, req.flash('loginMessage', 'No user found.'));
-     if(!user.validPassword(password)) return done(null, false, req.flash('loginMessage', 'Wrong password.'));
+     if(!user.validPassword(password)) return done(null, false, req.flash('message', 'Wrong password.'));
      return done(null, user);
    });
  }

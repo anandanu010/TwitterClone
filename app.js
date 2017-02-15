@@ -33,9 +33,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({ secret: 'shhsecret' }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
 
 app.use('/', routes);
 app.use('/', users);

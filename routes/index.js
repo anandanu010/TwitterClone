@@ -7,23 +7,19 @@ var busboy = require('connect-busboy');
 var fs = require('fs');
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Twitter Clone' });
-});
-
-router.get('/login', function(req,res){
-  res.render('login', {message: req.flash('loginMessage')});
+  res.render('index', { title: 'Twitter Clone', message: req.flash('message')});
 });
 
 router.post('/login', passport.authenticate('user-login', {
   successRedirect: '/homepage',
   failureRedirect: '/',
-  failureFlash: true,
+  failureFlash: true
 }));
 
 router.post('/signup', passport.authenticate('user-signup', {
   successRedirect: '/myprofile',
   failureRedirect: '/',
-  failureFlash: true,
+  failureFlash: true
 }));
 
 router.get('/logout', function(req, res) {
@@ -47,12 +43,8 @@ router.get('/homepage', isLoggedIn, function(req,res){
           var itemsProcessed = 0;
           allStatus.forEach(function(entry){
              User.findOne({'username': entry.username}, function(err, user){
-                if(err) console.log(err);
-
-                statusUsersDict.push({
-                  'status': entry,
-                  'user': user
-                });
+                if(err)console.log(err);
+                statusUsersDict.push({ 'status': entry, 'user': user});
                 itemsProcessed++;
                 if (itemsProcessed === allStatus.length){
                   callback(req,res,statusUsersDict);
@@ -66,9 +58,6 @@ router.get('/homepage', isLoggedIn, function(req,res){
 });
 
 function callback(req, res, dict){
-   dict.forEach(function(entry){
-     console.log(entry.status);
-    });
    res.render('homepage', {title: "Home", user: req.user,tweetsAndUsersDict: dict});
 }
 
@@ -87,7 +76,7 @@ router.post('/newstatus', isLoggedIn, function(req,res){
     status.status = req.body.status; // set the status to status that comes from request
     status.username = req.user.username;
     //save our new status object
-    status.save(function(err){
+    status.save(function(err) {
      if (err) res.send(err);
      res.redirect('/myprofile');
     });
@@ -97,8 +86,6 @@ router.post('/saveStatus', isLoggedIn, function(req,res){
     console.log('Updating status %j with new status %j', req.body.statusid, req.body.editedStatus);
     Status.findById(req.body.statusid, function(err, statusToUpdate){
       if (err) res.send(err);
-      //once we have a valid response update the nextStatus attribute to status passed in
-      console.log(statusToUpdate);
       statusToUpdate.status = req.body.editedStatus;
       statusToUpdate.save(function(err){
         if (err) res.send(err);
