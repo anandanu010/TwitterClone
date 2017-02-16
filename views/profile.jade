@@ -58,6 +58,8 @@ block content
        p(class="userDescription") #{user.description}
        p Joined #{user.created_at}
      div(class="col-sm-8 well well-sm", style="floatMeRight", id="twitterStatuses")
+       div(id="imageUploadAlert" class="alert alert-success alert-dismissible text-center" style="display:none")
+         p Upload of image successful
        h2(id="statusTitle") Statuses
        ul
            hr

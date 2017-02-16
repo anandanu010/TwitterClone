@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Status = require('../models/status');
 var User = require('../models/user');
+var fs = require('fs');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -67,9 +68,9 @@ router.post('/uploadHeaderPic', isLoggedIn, function(req,res){
    var fstream;
    var userFileLocation;
    req.busboy.on('file', function (fieldname, file, filename) {
-      console.log("Uploading" + filename);
+      console.log("Uploading " + filename);
       userFileLocation = '/img/' + filename;
-      fstream = fs.createWriteStream(process.env.PWD + '/public/img/' + filename);
+      fstream = fs.createWriteStream(process.cwd() + '/public/img/' + filename);
       file.pipe(fstream);
       fstream.on('close', function() {
          console.log("Upload finished of " + filename);
@@ -93,7 +94,7 @@ router.post('/uploadProfilePic', isLoggedIn, function(req,res){
    req.busboy.on('file', function (fieldname, file, filename) {
       console.log("Uploading" + filename);
       userFileLocation = '/img/' + filename;
-      fstream = fs.createWriteStream(process.env.PWD + '/public/img/' + filename);
+      fstream = fs.createWriteStream(process.cwd() + '/public/img/' + filename);
       file.pipe(fstream);
       fstream.on('close', function() {
          console.log("Upload finished of " + filename);
@@ -105,7 +106,6 @@ router.post('/uploadProfilePic', isLoggedIn, function(req,res){
                 res.status(200).send(userFileLocation);
              });
          });
-
       });
    });
 });

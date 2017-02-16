@@ -96,12 +96,6 @@ $(function(){
        });
     });
 
-   $('.updateUser').on('click', function(e){
-     console.log("clicked");
-     var realUserName = $('.realName');
-     var userDescription = $('.userDescription');
-   });
-
    $('#headerImageUpload').change(function() {
       var data = new FormData();
       var headerImage = $('#profilePageJumbo');
@@ -117,8 +111,8 @@ $(function(){
           processData: false,
           type: 'POST',
           success: function(data){
-             alert("upload successful");
              headerImage.css('background-image','url(' + data + ')');
+             $('#imageUploadAlert').show();
           },
           error: function(e){
             console.log(e.statusText);
@@ -153,7 +147,6 @@ $(function(){
 
 
 function updateUser(){
-     console.log('clicked');
      var realUserName = $('.realName');
      var userDescription = $('.userDescription');
      var username = $('.username').text();
