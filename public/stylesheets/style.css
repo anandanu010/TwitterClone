@@ -13,6 +13,9 @@ body {
   background-color: white;
 }
 
+.counter {
+  padding-right: 10px;
+}
 .center {
   position: absolute;
   background-color: white !important;
@@ -108,6 +111,10 @@ ul {
 
 .tweetToolbar{
    padding-top:20px;
+}
+
+.tweetToolbar label {
+  padding-right: 10px;
 }
 
 .myFile {

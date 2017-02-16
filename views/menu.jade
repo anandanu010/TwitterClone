@@ -9,7 +9,7 @@ div(class="modal fade" tabindex="-1" role="dialog" id="myModal")
                   div(class="tweet-content")
                      .row
                         div(class="col-sm-12")
-                           textarea(rows="4", cols="60", name="status", style="min-width:100%")
+                           textarea(ng-model="newTweet", rows="4", maxlength=140, cols="60", name="status", style="min-width:100%")
                      .row
                         div(class="tweetToolbar")
                            div(class="col-sm-9")
@@ -25,7 +25,7 @@ div(class="modal fade" tabindex="-1" role="dialog" id="myModal")
                                 button(type="" value="location" class="btn btn-info btn-sm") Location
                            div(class="col-sm-3")
                               div(class="floatMeRight")
-                                 span(class="counter") 140
+                                 span(class="counter") {{140 - newTweet.length}}
                                  button(type="submit" value="Tweet!!" class="btn btn-info btn-sm") Tweet
 navbar.navbar.navbar-default.navbar-fixed-top
   .container

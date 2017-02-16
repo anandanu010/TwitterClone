@@ -13,10 +13,10 @@ block content
     .row(id="userStats")
         div(class="col-sm-offset-5 col-sm-7")
           .container
-            ul.nav.navbar-nav
+            ul.nav.navbar-nav.text-center
               li.active
                 a(href='#') Tweets
-                span(id="numOfTweets") #{statuses.length}
+                span(id="numOfTweets" class="text-center") #{statuses.length}
               li
                 a(href='#') Following
                 span(id="numFollowing") #{user.following.length}
@@ -29,14 +29,14 @@ block content
               li
                 a(href='#') Lists
                 span(id="numOfLists") N/A
-              li(class="floatMeRight")
-              if isCurrentUser
-                input(type="submit", class="editUser btn btn-info btn-md", value="Edit Profile")
-              else
-                if isFollowing
-                   input(type="submit", class="btn btn-info btn-md", id="unfollow", value="Following")
+              li(style="padding-top:10px")
+                if isCurrentUser
+                  input(type="submit", class="editUser btn btn-info btn-md", value="Edit Profile")
                 else
-                   input(type="submit", class="btn btn-info btn-md", id="follow", value="Follow")
+                  if isFollowing
+                    input(type="submit", class="btn btn-info btn-md", id="unfollow", value="Following")
+                  else
+                    input(type="submit", class="btn btn-info btn-md", id="follow", value="Follow")
 
    
   .container
