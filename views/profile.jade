@@ -34,9 +34,11 @@ block content
                   input(type="submit", class="editUser btn btn-info btn-md", value="Edit Profile")
                 else
                   if isFollowing
-                    input(type="submit", class="btn btn-info btn-md", id="unfollow", value="Following")
+                    input(type="submit" class="btn btn-info btn-md", id="unfollow", value="unfollow")
+                    input(type="submit" class="btn btn-info btn-md", id="follow", value="follow", style="display:none;")
                   else
-                    input(type="submit", class="btn btn-info btn-md", id="follow", value="Follow")
+                    input(type="submit" class="btn btn-info btn-md", id="follow", value="follow")
+                    input(type="submit" class="btn btn-info btn-md", id="unfollow", value="unfollow", style="display:none;")
 
    
   .container
@@ -51,7 +53,8 @@ block content
      div(class="col-sm-3" id="userProfileCard")
        p Welcome 
           span(class="realName") #{user.name}
-       p(class="username") @#{user.username}
+       p(class="username")
+         span(ng-model="username") @#{user.username}
        p(class="userDescription") #{user.description}
        p Joined #{user.created_at}
      div(class="col-sm-8 well well-sm", style="floatMeRight", id="twitterStatuses")

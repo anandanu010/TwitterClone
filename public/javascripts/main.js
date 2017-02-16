@@ -46,8 +46,6 @@ $(function(){
    $('#follow').on('click', function(e){
      // Gives us the username to follow
      var username = $('.username').text().replace('@','');
-     var followButton = $('#follow');
-     console.log(followButton);
 
     $.ajax({
       url: '/addFollower',
@@ -62,8 +60,8 @@ $(function(){
       success: function(){
         console.log("process success");
         // Change the button to following and disable the button
-        $(followButton).val('Following');
-        $(followButton).attr('id','unfollow');
+        $('#follow').hide();
+        $('#unfollow').show();
       },
       error: function(e){
         console.log('error');
@@ -72,31 +70,31 @@ $(function(){
     });
    });
 
-   $('#unfollow').on('click', function(e){
-     // Gives us the username to follow
-     var username = $('.username').text().replace('@','');
-     var followButton = $('#unfollow');
 
-    $.ajax({
-      url: '/removeFollower',
-      type: "POST",
-      dataType: "json",
-      data: JSON.stringify({
-        userToRemove: username
-      }),
-      contentType: "application/json",
-      cache: false,
-      timeout: 5000,
-      success: function(){
-        // Change the button to following and disable the button
-        $(followButton).val('Follow');
-        $(followButton).attr('id','follow');
-      },
-      error: function(e){
-        console.log(e.statusText);
-      },
+    $('#unfollow').on('click', function(e){
+        // Gives us the username to follow
+        var username = $('.username').text().replace('@','');
+        var followButton = $('#unfollow');
+
+       $.ajax({
+         url: '/removeFollower',
+         type: "POST",
+         dataType: "json",
+         data: JSON.stringify({
+           userToRemove: username
+         }),
+         contentType: "application/json",
+         cache: false,
+         timeout: 5000,
+         success: function(){
+           $('#unfollow').hide();
+           $('#follow').show();
+         },
+         error: function(e){
+           console.log(e.statusText);
+         },
+       });
     });
-   });
 
    $('.updateUser').on('click', function(e){
      console.log("clicked");
