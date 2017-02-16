@@ -6,7 +6,7 @@ var fs = require('fs');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  
 });
 
 router.get('/following', isLoggedIn, function(req,res){
@@ -18,7 +18,6 @@ router.get('/following', isLoggedIn, function(req,res){
 
 router.get('/myprofile', isLoggedIn, function(req, res){
   console.log('Loading all statuses for user', req.user);
-  // Use our status model to find everything via find
   Status.find({'username': req.user.username}).sort({'created_at': -1}).exec(function(err, allStatus){
       if (err) res.send(err);
       res.render('profile', {title: "My Profile", user: req.user, isCurrentUser: true, statuses: allStatus});
@@ -32,7 +31,6 @@ router.get('/:username', isLoggedIn, function(req, res, next){
   if(req.user.following.indexOf(username) >= 0)
     isFollowing = true;
 
-  // Use our status model to find everything via find
   User.findOne({'username': username}, function(err, user){
     if (err) res.send(err);
     if(!user) {
@@ -82,7 +80,6 @@ router.post('/uploadHeaderPic', isLoggedIn, function(req,res){
                 res.status(200).send(userFileLocation);
              });
          });
-
       });
    });
 });
