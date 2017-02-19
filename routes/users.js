@@ -6,7 +6,7 @@ var fs = require('fs');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  
+
 });
 
 router.get('/following', isLoggedIn, function(req,res){
@@ -126,6 +126,14 @@ router.post('/removeFollower', isLoggedIn, function(req,res){
   User.update({"username": req.body.userToRemove},{ "$pull": {"followers": req.user.username}}, function(err,worked){
     if(err) console.log(err);
     res.json({ success: true });
+  });
+});
+
+router.post('/deleteme', isLoggedIn, function(req, res){
+  console.log('Deleting User ', req.user.username);
+  User.remove({_id:  req.user._id}, function(err){
+        if (err) res.send(err);
+        res.redirect('/');
   });
 });
 
