@@ -1,8 +1,8 @@
 $(function(){
-   $('.editable').on('click', function(e){
+   $('.editStatus').on('click', function(e){
       // this might be missing all the attributes
-      var divElement = $(this).parent(); // this gives us the li element
-      var liElement = $(divElement).parent();
+      console.log($(this));
+      var liElement = $(this).parent().parent(); // this gives us the li element
       var actualStatusText = $(liElement).children('.statusText');
       var ID = $(this).attr('id'); // get id for the status
       var deleteElement = $(liElement).children('.delete'); // gets our delete button
