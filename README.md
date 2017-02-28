@@ -9,6 +9,7 @@
 - Delete tweets
 - Follow & Unfollow users
 - View users profiles
+
 #### Technologies
 - NodeJS for Back-end
 - ExpressJS
