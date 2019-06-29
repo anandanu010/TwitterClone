@@ -13,7 +13,7 @@ RUN npm install
 COPY . /usr/src/app
 
 #What port we want to expost
-EXPOSE 8080
+EXPOSE 5001
 
 #Next we need to start our server so we can reach it (i.e. server.js)
 CMD ["npm", "start" ]
